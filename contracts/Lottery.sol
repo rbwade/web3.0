@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.24;
 
 contract Lottery{
     // varibale to store managers address
@@ -6,7 +6,7 @@ contract Lottery{
 
     //we are storing the address of the participants
     address[] public participants;
-    
+
     constructor () public {
         manager = msg.sender;
     }
