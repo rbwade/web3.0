@@ -27,12 +27,21 @@ class Lottery extends Component{
       if(this.state.participate_amount< 0.01){
       return aleert("Amount is less than 0.01 please enter bigger amount");
     }
-    this.setState({message : 'please wait ....'});
+    this.setState({message : 'Please wait ....'});
     const enter_lottery = await lottery.methods.enterLottery().send({
       from: accounts[0],
       value:web3.utils.toWei(this.state.participate_amount,'ether')
     });
     this.setState({message: "You have been added to lottery"});
+  }
+
+  onClick = async() =>{
+    this.setState({message:"Please wait..."})
+    const accounts = await web3.eth.getAccounts();
+    const winner = await lottery.methods.pickWinner().send({
+      from: accounts[0]
+    });
+    this.setState({message:"Payment sent to winner"});
   }
   render(){
     return(
@@ -48,7 +57,7 @@ class Lottery extends Component{
          <p>{this.state.message} </p>
          <hr /> <br /> <hr />
          <p> The manager of the lottery decentralized app is {this.state.manager} </p>
-         <button>Pick Winner</button>
+         <button onClick = {this.onClick}>Pick Winner</button>
       </div>
     )
   }
