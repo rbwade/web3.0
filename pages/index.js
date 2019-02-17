@@ -9,18 +9,21 @@ class Lottery extends Component{
     this.state={
       manager:'',
       participate_amount:'0.5',
-      message:''
+      message:'',
+      total_amount:''
     }
   }
   async componentDidMount(){
     //get the public address of the manager
     const manager = await lottery.methods.manager().call();
     this.setState({manager : manager}) ;
+    const total_amount = await web3.eth.getBalance(lottery.options.address);
+    this.setState({total_amount : total_amount});
   }
   render(){
     return(
       <div>
-        <h1>Total Lottery Pool is 1000 </h1>
+        <h1>Total Lottery Pool is {this.state.total_amount} </h1>
         <form>
            <input placeholder = "0.5" />
            <button type="submit">Participate</button>
